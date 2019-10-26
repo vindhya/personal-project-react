@@ -43,7 +43,7 @@ class App extends Component {
                   value={this.state.value}
                   onChange={this.handleChange}
                   required
-                  // TODO: figure out validation for no spaces
+                  // TODO: figure out validation for no spaces, no special characters except - and _
                   // validate={{ regexp: /^\S*$/ }}
                 />
               </FormField>
