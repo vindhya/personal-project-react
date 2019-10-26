@@ -35,7 +35,8 @@ class App extends Component {
               <FormField
                 label="GitHub Username"
                 htmlFor="username-input"
-                {...this.props}
+                // not necessary?
+                // {...this.props}
               >
                 <TextInput
                   id="username-input"
