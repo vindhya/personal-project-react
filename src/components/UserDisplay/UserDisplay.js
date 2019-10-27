@@ -6,13 +6,23 @@ import ListItem from '../List/ListItem';
 
 const getEventApiUrl = username =>
   `https://api.github.com/users/${username}/events`;
-const testingText = `Jelly jelly bonbon toffee cookie icing cake. Oat cake cake jelly gummi bears donut jelly beans gummies. Jelly marzipan donut halvah sweet roll jelly beans soufflé ice cream. Fruitcake sweet topping. Dragée sweet soufflé candy canes cake. Jujubes muffin jelly beans chupa chups gummies. Cake powder dragée. Oat cake jelly beans sweet cookie liquorice croissant. Jelly-o candy cotton candy dragée apple pie gummies apple pie sweet. Powder ice cream gingerbread brownie tootsie roll. Muffin oat cake toffee marshmallow donut. Wafer danish gingerbread.`;
+const EVENT = { FORK: 'ForkEvent', PULL_REQUEST: 'PullRequestEvent' };
 
 const UserDisplay = props => {
   const [events, setEvents] = useState([]);
-  const forkEvents = events.filter(event => event.type === 'ForkEvent');
-  const prEvents = events.filter(event => event.type === 'PullRequestEvent');
-  console.log('prEvents', prEvents);
+  const filteredEvents = events.reduce(
+    (acc, currentEvent) => {
+      if (currentEvent.type === EVENT.FORK) {
+        return { ...acc, forkEvents: [...acc.forkEvents, currentEvent] };
+      } else if (currentEvent.type === EVENT.PULL_REQUEST) {
+        return { ...acc, prEvents: [...acc.prEvents, currentEvent] };
+      } else {
+        return acc;
+      }
+    },
+    { forkEvents: [], prEvents: [] }
+  );
+  console.log('filteredEvents', filteredEvents);
 
   useEffect(() => {
     const fetchUserData = () => {
