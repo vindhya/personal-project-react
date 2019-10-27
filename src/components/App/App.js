@@ -7,7 +7,7 @@ import UserDisplay from '../UserDisplay/UserDisplay';
 // mockup button colour: '#57BE9D'
 
 const App = () => {
-  const [showUser, setShowUser] = useState(true);
+  const [showUser, setShowUser] = useState(false);
   const [username, setUsername] = useState('');
 
   const handleUserInput = name => {
@@ -18,7 +18,7 @@ const App = () => {
   return (
     <Grommet full theme={grommet}>
       {showUser ? (
-        <UserDisplay username="vindhya" />
+        <UserDisplay username={username} />
       ) : (
         <UsernameForm onUsernameSubmission={handleUserInput} />
       )}
