@@ -16,9 +16,8 @@ const UserDisplay = props => {
         return { ...acc, forkEvents: [...acc.forkEvents, currentEvent] };
       } else if (currentEvent.type === EVENT.PULL_REQUEST) {
         return { ...acc, prEvents: [...acc.prEvents, currentEvent] };
-      } else {
-        return acc;
       }
+      return acc;
     },
     { forkEvents: [], prEvents: [] }
   );
