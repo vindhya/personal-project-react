@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Heading } from 'grommet';
 
+import List from '../List/List';
+import ListItem from '../List/ListItem';
+
+const getEventApiUrl = username =>
+  `https://api.github.com/users/${username}/events`;
+const testingText = `Jelly jelly bonbon toffee cookie icing cake. Oat cake cake jelly gummi bears donut jelly beans gummies. Jelly marzipan donut halvah sweet roll jelly beans soufflé ice cream. Fruitcake sweet topping. Dragée sweet soufflé candy canes cake. Jujubes muffin jelly beans chupa chups gummies. Cake powder dragée. Oat cake jelly beans sweet cookie liquorice croissant. Jelly-o candy cotton candy dragée apple pie gummies apple pie sweet. Powder ice cream gingerbread brownie tootsie roll. Muffin oat cake toffee marshmallow donut. Wafer danish gingerbread.`;
+
 const UserDisplay = props => {
+  const [events, setEvents] = useState([]);
+  const forkEvents = events.filter(event => event.type === 'ForkEvent');
+  const prEvents = events.filter(event => event.type === 'PullRequestEvent');
+  console.log('prEvents', prEvents);
+
+  useEffect(() => {
+    const fetchUserData = () => {
+      fetch(getEventApiUrl(props.username))
+        .then(response => response.json())
+        .then(data => setEvents(data));
+    };
+    fetchUserData();
+  }, [props.username]);
+
   return (
     <Box align="center" pad="large">
       <Heading level="1" size="medium">
@@ -11,19 +32,9 @@ const UserDisplay = props => {
         <Heading level="2" size="medium">
           Recent Forks
         </Heading>
-        Sweet chocolate bar cupcake. Cotton candy pastry donut cheesecake. Lemon
-        drops soufflé icing croissant marzipan jujubes macaroon gingerbread
-        brownie. Jelly marzipan cookie sweet roll danish fruitcake chocolate
-        sweet roll. Jelly beans chupa chups macaroon jujubes biscuit chupa chups
-        chupa chups. Chocolate cake croissant tiramisu caramels cookie tiramisu
-        brownie sweet roll pudding. Gummies lollipop oat cake sweet roll.
-        Soufflé halvah jelly beans gummies sweet croissant tart liquorice.
-        Gummies pastry chocolate sweet. Chocolate bar croissant fruitcake
-        croissant muffin cheesecake bear claw muffin. Sweet muffin bonbon
-        gummies candy canes candy canes. Ice cream cotton candy marshmallow
-        tootsie roll fruitcake dragée pudding soufflé croissant. Marshmallow
-        bear claw lollipop biscuit chocolate cake. Chocolate cake ice cream
-        cookie cookie.
+        <List>
+          <ListItem>Hello</ListItem>
+        </List>
         <Heading level="2" size="medium">
           Recent Pull Requests
         </Heading>
