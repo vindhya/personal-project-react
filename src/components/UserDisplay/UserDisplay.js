@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Heading } from 'grommet';
 
+import { EVENT } from '../../constants';
 import EventList from '../EventList/EventList';
 
 const getEventApiUrl = username =>
   `https://api.github.com/users/${username}/events`;
-const EVENT = { FORK: 'ForkEvent', PULL_REQUEST: 'PullRequestEvent' };
 
 const UserDisplay = props => {
   const [events, setEvents] = useState([]);
