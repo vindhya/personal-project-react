@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from 'grommet';
 
-export const ListItem = props => (
+const ListItem = props => (
   <Box
     as="li"
     border={props.index ? 'bottom' : 'horizontal'}
@@ -11,3 +11,5 @@ export const ListItem = props => (
     {...props}
   />
 );
+
+export default ListItem;
