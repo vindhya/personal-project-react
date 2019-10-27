@@ -38,12 +38,7 @@ export class UsernameForm extends Component {
                 // validate={{ regexp: /^\S*$/ }}
               />
             </FormField>
-            <Button
-              primary
-              color="accent-1"
-              type="submit"
-              label="Get User"
-            ></Button>
+            <Button primary type="submit" label="Get User"></Button>
           </Form>
         </Box>
       </Box>
