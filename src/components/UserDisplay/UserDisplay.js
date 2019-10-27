@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Heading } from 'grommet';
 
-import List from '../List/List';
-import ListItem from '../List/ListItem';
+import EventList from '../EventList/EventList';
 
 const getEventApiUrl = username =>
   `https://api.github.com/users/${username}/events`;
@@ -21,7 +20,6 @@ const UserDisplay = props => {
     },
     { forkEvents: [], prEvents: [] }
   );
-  console.log('filteredEvents', filteredEvents);
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -38,15 +36,16 @@ const UserDisplay = props => {
         {props.username}
       </Heading>
       <Box width="large">
-        <Heading level="2" size="medium">
-          Recent Forks
-        </Heading>
-        <List>
-          <ListItem>Hello</ListItem>
-        </List>
-        <Heading level="2" size="medium">
-          Recent Pull Requests
-        </Heading>
+        <EventList
+          type="fork"
+          name="Recent Forks"
+          data={filteredEvents.forkEvents}
+        />
+        <EventList
+          type="pr"
+          name="Recent Pull Requests"
+          data={filteredEvents.prEvents}
+        />
       </Box>
     </Box>
   );
