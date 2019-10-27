@@ -6,7 +6,7 @@ const ListItem = props => (
     as="li"
     border={props.index ? 'bottom' : 'horizontal'}
     pad="small"
-    direction="row"
+    // direction="row"
     justify="between"
     {...props}
   />
