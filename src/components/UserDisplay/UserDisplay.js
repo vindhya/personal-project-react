@@ -9,17 +9,20 @@ const EVENT = { FORK: 'ForkEvent', PULL_REQUEST: 'PullRequestEvent' };
 
 const UserDisplay = props => {
   const [events, setEvents] = useState([]);
-  const filteredEvents = events.reduce(
-    (acc, currentEvent) => {
-      if (currentEvent.type === EVENT.FORK) {
-        return { ...acc, forkEvents: [...acc.forkEvents, currentEvent] };
-      } else if (currentEvent.type === EVENT.PULL_REQUEST) {
-        return { ...acc, prEvents: [...acc.prEvents, currentEvent] };
-      }
-      return acc;
-    },
-    { forkEvents: [], prEvents: [] }
-  );
+  let filteredEvents = {};
+  if (events.length > 0) {
+    filteredEvents = events.reduce(
+      (acc, currentEvent) => {
+        if (currentEvent.type === EVENT.FORK) {
+          return { ...acc, forkEvents: [...acc.forkEvents, currentEvent] };
+        } else if (currentEvent.type === EVENT.PULL_REQUEST) {
+          return { ...acc, prEvents: [...acc.prEvents, currentEvent] };
+        }
+        return acc;
+      },
+      { forkEvents: [], prEvents: [] }
+    );
+  }
 
   useEffect(() => {
     const fetchUserData = () => {

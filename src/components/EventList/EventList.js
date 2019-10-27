@@ -12,7 +12,7 @@ const EventList = ({ data, name, type }) => {
       <Heading level="2" size="medium">
         {name}
       </Heading>
-      {data.length > 0 ? (
+      {data ? (
         <List>
           {data.map((event, index) => (
             <EventListItem
