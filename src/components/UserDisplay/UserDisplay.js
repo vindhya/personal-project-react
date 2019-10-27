@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Box, Heading } from 'grommet';
 
 import { EVENT } from '../../constants';
+import { getEventApiUrl } from '../../utils/utils';
 import EventList from '../EventList/EventList';
-
-const getEventApiUrl = username =>
-  `https://api.github.com/users/${username}/events`;
 
 const UserDisplay = props => {
   const [events, setEvents] = useState([]);
@@ -40,12 +38,12 @@ const UserDisplay = props => {
       </Heading>
       <Box width="large">
         <EventList
-          type="fork"
+          type={EVENT.FORK}
           name="Recent Forks"
           data={filteredEvents.forkEvents}
         />
         <EventList
-          type="pr"
+          type={EVENT.PULL_REQUEST}
           name="Recent Pull Requests"
           data={filteredEvents.prEvents}
         />
