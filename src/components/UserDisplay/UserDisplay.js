@@ -3,24 +3,12 @@ import { Box, Heading } from 'grommet';
 
 import { EVENT } from '../../constants';
 import { getEventApiUrl } from '../../utils/utils';
+import { getForkAndPREvents } from './UserDisplay.service';
 import EventList from '../EventList/EventList';
 
 const UserDisplay = props => {
   const [events, setEvents] = useState([]);
-  let filteredEvents = {};
-  if (events.length > 0) {
-    filteredEvents = events.reduce(
-      (acc, currentEvent) => {
-        if (currentEvent.type === EVENT.FORK) {
-          return { ...acc, forkEvents: [...acc.forkEvents, currentEvent] };
-        } else if (currentEvent.type === EVENT.PULL_REQUEST) {
-          return { ...acc, prEvents: [...acc.prEvents, currentEvent] };
-        }
-        return acc;
-      },
-      { forkEvents: [], prEvents: [] }
-    );
-  }
+  const filteredEvents = events.length > 0 ? getForkAndPREvents(events) : {};
 
   useEffect(() => {
     const fetchUserData = () => {
