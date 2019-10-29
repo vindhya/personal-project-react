@@ -6,8 +6,6 @@ import EventListItem from '../EventList/EventListItem';
 import Loading from '../Loading/Loading';
 
 const EventList = ({ data, name, type }) => {
-  console.log(type, data);
-
   const renderData = () => {
     return data.length > 0 ? (
       <List>
