@@ -4,8 +4,10 @@ import { render } from '@testing-library/react';
 import EventList from './EventList';
 import { EVENT } from '../../constants';
 import { getForkAndPREvents } from '../UserDisplay/UserDisplay.service';
+import eventData from '../../example-api-responses/events-fork-pr.json';
 
-const testData = [];
+// console.log('eventData', eventData);
+const { forkEvents, prEvents } = getForkAndPREvents(eventData);
 
 describe('EventListItem component tests', () => {
   it('renders even if there are no data events', () => {
@@ -22,25 +24,23 @@ describe('EventListItem component tests', () => {
   it('shows the forked from text if the event type is a fork', () => {
     const name = 'recent forks';
     const type = EVENT.FORK;
-    const { getByText } = render(
-      <EventList type={type} name={name} data={testForkData} />
+    const { queryByText } = render(
+      <EventList type={type} name={name} data={forkEvents} />
     );
-    expect(getByText(/forked from/i)).toBeInTheDocument();
+    expect(queryByText(/forked from/i)).toBeInTheDocument();
   });
 
   it('shows the status text if the event type is a pull request', () => {
     const name = 'recent prs';
     const type = EVENT.PULL_REQUEST;
-    const { getByText } = render(
-      <EventList type={type} name={name} data={testPRData} />
+    const { getAllByText } = render(
+      <EventList type={type} name={name} data={prEvents} />
     );
-    expect(getByText(/status/i)).toBeInTheDocument();
+    const elements = getAllByText(/status: open/i);
+    // the below probably isn't necessary...if the above getAllByText doesn't error out,
+    // then the test will pass ✅
+    elements.forEach(element => {
+      expect(element).toHaveTextContent(/status/i);
+    });
   });
 });
-
-// not sure where else to put the test data below because i wouldn't want it to be included
-// in the app for the production build
-
-const testForkData = [{ id: 1, forkee: {} }];
-
-const testPRData = [{ id: 1 }];
