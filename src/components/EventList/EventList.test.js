@@ -36,7 +36,7 @@ describe('EventListItem component tests', () => {
     const { getAllByText } = render(
       <EventList type={type} name={name} data={prEvents} />
     );
-    const elements = getAllByText(/status: open/i);
+    const elements = getAllByText(/status/i);
     // the below probably isn't necessary...if the above getAllByText doesn't error out,
     // then the test will pass ✅
     elements.forEach(element => expect(element).toHaveTextContent(/status/i));
