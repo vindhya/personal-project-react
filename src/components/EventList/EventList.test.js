@@ -39,8 +39,6 @@ describe('EventListItem component tests', () => {
     const elements = getAllByText(/status: open/i);
     // the below probably isn't necessary...if the above getAllByText doesn't error out,
     // then the test will pass ✅
-    elements.forEach(element => {
-      expect(element).toHaveTextContent(/status/i);
-    });
+    elements.forEach(element => expect(element).toHaveTextContent(/status/i));
   });
 });
