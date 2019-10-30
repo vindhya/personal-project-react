@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Box, Button, Form, FormField, TextInput } from 'grommet';
+import { setUserInput } from '../../store/actions/user.actions';
 
 export class UsernameForm extends Component {
-  state = { value: '' };
-
   handleChange = event => {
     const {
       target: { value }
     } = event;
-    this.setState({ value });
+    this.props.setInputValue(value);
+    // this.props.setInputValue(event.target.value);
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log('state on submit', this.state);
-    this.props.onUsernameSubmission(this.state.value);
+    console.log('props on submit', this.props);
+    this.props.onUsernameSubmission(this.props.value);
   };
 
   render() {
@@ -31,7 +32,7 @@ export class UsernameForm extends Component {
               <TextInput
                 id="username-input"
                 placeholder="Type something..."
-                value={this.state.value}
+                value={this.props.value}
                 onChange={this.handleChange}
                 required
                 // TODO: figure out validation for no spaces, no special characters except - and _
@@ -46,4 +47,13 @@ export class UsernameForm extends Component {
   }
 }
 
-export default UsernameForm;
+const mapStateToProps = state => ({ value: state.inputValue });
+
+const mapDispatchToProps = dispatch => ({
+  setInputValue: value => dispatch(setUserInput(value))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UsernameForm);
