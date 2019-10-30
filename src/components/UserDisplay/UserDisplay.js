@@ -8,7 +8,7 @@ import EventList from '../EventList/EventList';
 
 const UserDisplay = props => {
   const [events, setEvents] = useState([]);
-  const filteredEvents = events.length > 0 ? getForkAndPREvents(events) : {};
+  const [filteredEvents, setFilteredEvents] = useState({});
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -18,6 +18,12 @@ const UserDisplay = props => {
     };
     fetchUserData();
   }, [props.username]);
+
+  useEffect(() => {
+    if (events.length > 0) {
+      setFilteredEvents(getForkAndPREvents(events));
+    }
+  }, [events]);
 
   return (
     <Box align="center" pad="large">
