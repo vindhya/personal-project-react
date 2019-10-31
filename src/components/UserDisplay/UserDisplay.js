@@ -1,49 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Heading } from 'grommet';
+import { connect } from 'react-redux';
 
 import { EVENT } from '../../constants';
-import { getEventApiUrl } from '../../utils/utils';
-import { getForkAndPREvents } from './UserDisplay.service';
 import EventList from '../EventList/EventList';
+import { fetchEventsThunk } from '../../store/actions/events.actions';
 
-const UserDisplay = props => {
-  const [events, setEvents] = useState([]);
-  const [filteredEvents, setFilteredEvents] = useState({});
-
+const UserDisplay = ({ username, fetchEventData, forkEvents, prEvents }) => {
   useEffect(() => {
-    const fetchUserData = () => {
-      fetch(getEventApiUrl(props.username))
-        .then(response => response.json())
-        .then(data => setEvents(data));
-    };
-    fetchUserData();
-  }, [props.username]);
-
-  useEffect(() => {
-    if (events.length > 0) {
-      setFilteredEvents(getForkAndPREvents(events));
-    }
-  }, [events]);
+    fetchEventData(username);
+  }, [fetchEventData, username]);
 
   return (
     <Box align="center" pad="large">
       <Heading level="1" size="medium">
-        {props.username}
+        {username}
       </Heading>
       <Box width="large">
-        <EventList
-          type={EVENT.FORK}
-          name="Recent Forks"
-          data={filteredEvents.forkEvents}
-        />
+        <EventList type={EVENT.FORK} name="Recent Forks" data={forkEvents} />
         <EventList
           type={EVENT.PULL_REQUEST}
           name="Recent Pull Requests"
-          data={filteredEvents.prEvents}
+          data={prEvents}
         />
       </Box>
     </Box>
   );
 };
 
-export default UserDisplay;
+const mapStateToProps = state => ({
+  username: state.user.username,
+  forkEvents: state.events.forkEvents,
+  prEvents: state.events.prEvents
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchEventData: username => dispatch(fetchEventsThunk(username))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserDisplay);

@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Box, Button, Form, FormField, TextInput } from 'grommet';
-import { setUserInput } from '../../store/actions/user.actions';
+
+import {
+  setUserInput,
+  setUsername,
+  toggleShowUser
+} from '../../store/actions/user.actions';
 
 export class UsernameForm extends Component {
   handleChange = event => {
@@ -15,7 +20,8 @@ export class UsernameForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log('props on submit', this.props);
-    this.props.onUsernameSubmission(this.props.value);
+    this.props.setUsername(this.props.value);
+    this.props.toggleShowUser();
   };
 
   render() {
@@ -47,10 +53,12 @@ export class UsernameForm extends Component {
   }
 }
 
-const mapStateToProps = state => ({ value: state.inputValue });
+const mapStateToProps = state => ({ value: state.user.inputValue });
 
 const mapDispatchToProps = dispatch => ({
-  setInputValue: value => dispatch(setUserInput(value))
+  setInputValue: value => dispatch(setUserInput(value)),
+  setUsername: username => dispatch(setUsername(username)),
+  toggleShowUser: () => dispatch(toggleShowUser())
 });
 
 export default connect(

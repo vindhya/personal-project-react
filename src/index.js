@@ -6,11 +6,11 @@ import { Provider } from 'react-redux';
 import reduxThunk from 'redux-thunk';
 
 import App from './components/App/App';
-import { userReducer } from './store/reducers/user.reducer';
+import reducer from './store/reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  userReducer,
+  reducer,
   composeEnhancers(applyMiddleware(reduxThunk))
 );
 
