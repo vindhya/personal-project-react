@@ -15,10 +15,15 @@ const App = () => {
     setShowUser(true);
   };
 
+  const handleBackButton = () => {
+    setUsername('');
+    setShowUser(false);
+  };
+
   return (
     <Grommet full theme={grommet}>
       {showUser ? (
-        <UserDisplay username={username} />
+        <UserDisplay username={username} onBackButtonClick={handleBackButton} />
       ) : (
         <UsernameForm onUsernameSubmission={handleUserInput} />
       )}

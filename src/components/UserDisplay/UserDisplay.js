@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Heading } from 'grommet';
+import { Box, Button, Heading } from 'grommet';
+import { Previous } from 'grommet-icons';
 
 import { EVENT } from '../../constants';
 import { getEventApiUrl } from '../../utils/utils';
@@ -27,6 +28,13 @@ const UserDisplay = props => {
 
   return (
     <Box align="center" pad="large">
+      <Box fill>
+        <Button
+          icon={<Previous />}
+          onClick={props.onBackButtonClick}
+          aria-label="back"
+        />
+      </Box>
       <Heading level="1" size="medium">
         {props.username}
       </Heading>
