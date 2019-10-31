@@ -6,6 +6,7 @@ import { capitalize } from '../../utils/utils';
 import { EVENT } from '../../constants';
 
 const EventListItem = ({ event, index, type }) => {
+  // look into using selectors for this data
   const [mainText, setMainText] = useState('');
   const [subText, setSubText] = useState('');
   const [htmlUrl, setHtmlUrl] = useState('');
