@@ -12,6 +12,8 @@ const EventListItem = ({ event, index, type }) => {
   const [prStatus, setPRStatus] = useState('');
 
   useEffect(() => {
+    // consider moving this logic up the component tree to make this component
+    // more "dumb"
     if (event && type === EVENT.FORK) {
       setMainText(event.payload.forkee.full_name);
       setSubText(`Forked from: ${event.repo.name}`);
